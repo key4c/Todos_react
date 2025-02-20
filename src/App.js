@@ -1,7 +1,6 @@
 import { useState } from "react";
-import TodoList from "./TodoList";
 import initialTodos from "./todos";
-import TodoAdd from "./TodoAdd";
+import { Outlet, NavLink } from "react-router-dom";
 
 export default function App() {
   const [todos, setTodos] = useState(initialTodos);
@@ -23,12 +22,31 @@ export default function App() {
     <div className="container">
       <nav className="navbar is-light">
         <div className="navbar-brand">
-          <span className="navbar-item is-uppercase">todos</span>
+          <NavLink
+            to={"/"}
+            className={({ isActive }) =>
+              "navbar-item is uppercase" + (isActive ? " is-active" : "")
+            }
+          >
+            Todos
+          </NavLink>
+        </div>
+
+        <div className="navbar-menu">
+          <div className="navbar-start">
+            <NavLink
+              to={"/add"}
+              className={({ isActive }) =>
+                "navbar-item" + (isActive ? " is-active" : "")
+              }
+            >
+              Создать дело
+            </NavLink>
+          </div>
         </div>
       </nav>
       <main className="content px-6 py-6">
-        <TodoList list={todos} setDone={setDone} del={del} />
-        <TodoAdd add={add} />
+        <Outlet />
       </main>
     </div>
   );
