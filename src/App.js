@@ -10,6 +10,10 @@ export default function App() {
     if (deed) deed.done = true;
     setTodos(newTodos);
   };
+  const del = (key) => {
+    const newTodos = todos.filter((current) => current.key !== key);
+    setTodos(newTodos);
+  };
   return (
     <div className="container">
       <nav className="navbar is-light">
@@ -18,7 +22,7 @@ export default function App() {
         </div>
       </nav>
       <main className="content px-6 py-6">
-        <TodoList list={todos} setDone={setDone} />
+        <TodoList list={todos} setDone={setDone} del={del} />
       </main>
     </div>
   );
