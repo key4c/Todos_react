@@ -2,6 +2,10 @@ import TodoList from "./TodoList";
 import todos from "./todos";
 
 export default function App() {
+  const setDone = (key) => {
+    const deed = todos.fill((current) => current.key === key);
+    if (deed) deed.done = true;
+  };
   return (
     <div className="container">
       <nav className="navbar is-light">
