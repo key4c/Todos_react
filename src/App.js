@@ -1,10 +1,14 @@
+import { useState } from "react";
 import TodoList from "./TodoList";
-import todos from "./todos";
+import initialTodos from "./todos";
 
 export default function App() {
+  const [todos, setTodos] = useState(initialTodos);
   const setDone = (key) => {
-    const deed = todos.fill((current) => current.key === key);
+    const newTodos = [...todos];
+    const deed = newTodos.find((current) => current.key === key);
     if (deed) deed.done = true;
+    setTodos(newTodos);
   };
   return (
     <div className="container">
@@ -14,7 +18,7 @@ export default function App() {
         </div>
       </nav>
       <main className="content px-6 py-6">
-        <TodoList list={todos} />
+        <TodoList list={todos} setDone={setDone} />
       </main>
     </div>
   );
