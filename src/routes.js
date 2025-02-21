@@ -6,12 +6,12 @@ import {
 import App from "./App";
 import TodoList from "./TodoList";
 import TodoAdd from "./TodoAdd";
-import todos from "./todos";
+// import todos from "./todos";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
-      <Route index={true} element={<TodoList list={todos} />} />
+      <Route index={true} element={<TodoList />} />
       <Route path="add" element={<TodoAdd />} />
     </Route>
   )
