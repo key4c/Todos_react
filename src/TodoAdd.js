@@ -1,20 +1,17 @@
 import { useState } from "react";
+import { useSubmit } from "react-router-dom";
 
-export default function TodoAdd(props) {
+export default function TodoAdd() {
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [img, setImage] = useState("");
+  const submit = useSubmit();
 
   const handleFormSubmit = (evt) => {
     evt.preventDefault();
-    const newDeed = { title, desc, img, done: false };
-    const date = new Date();
-    newDeed.createdAt = date.toLocaleDateString();
-    newDeed.key = date.getTime();
-    props.add(newDeed);
-    evt.target.reset();
-  };
-  const handleFormReset = () => {
+
+    submit({ title, desc, img }, { action: "/add", method: "post" });
+    // Очистка полей после отправки
     setTitle("");
     setDesc("");
     setImage("");
@@ -22,7 +19,14 @@ export default function TodoAdd(props) {
   return (
     <section>
       <h1>Создание нового дела</h1>
-      <form onSubmit={handleFormSubmit} onReset={handleFormReset}>
+      <form
+        onSubmit={handleFormSubmit}
+        onReset={() => {
+          setTitle("");
+          setDesc("");
+          setImage("");
+        }}
+      >
         <div className="field">
           <label className="label">Заголовок</label>
           <div className="control">
@@ -39,7 +43,7 @@ export default function TodoAdd(props) {
             <textarea
               className="textarea"
               value={desc}
-              onChange={(e) => setTitle(e.target.value)}
+              onChange={(e) => setDesc(e.target.value)}
             />
           </div>
         </div>
