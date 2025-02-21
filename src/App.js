@@ -4,6 +4,7 @@ import { Outlet, NavLink } from "react-router-dom";
 
 export default function App() {
   const [todos, setTodos] = useState(initialTodos);
+  const [showMenu, setShowMenu] = useState(false);
 
   const setDone = (key) => {
     const newTodos = [...todos];
@@ -18,6 +19,12 @@ export default function App() {
   const add = (deed) => {
     setTodos([...todos, deed]);
   };
+
+  const handleBurgerClick = (evt) => {
+    evt.preventDefault();
+    setShowMenu(!showMenu);
+  };
+
   return (
     <div className="container">
       <nav className="navbar is-light">
@@ -30,9 +37,21 @@ export default function App() {
           >
             Todos
           </NavLink>
+          <a
+            href="/"
+            className={showMenu ? "navbar-burger is-active" : "navbar-burger"}
+            onClick={handleBurgerClick}
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </a>
         </div>
-
-        <div className="navbar-menu">
+        <div
+          className={showMenu ? "navbar-menu is-active" : "navbar-menu"}
+          onClick={handleBurgerClick}
+        >
           <div className="navbar-start">
             <NavLink
               to={"/add"}
