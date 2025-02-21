@@ -1,10 +1,13 @@
-export default function TodoList(props) {
+import { useLoaderData } from "react-router-dom";
+
+export default function TodoList({ setDone, del }) {
+  const list = useLoaderData();
   return (
     <section>
       <h1>Дела</h1>
       <table className="table is-hoverable is-fullwidth">
         <tbody>
-          {props.list.map((item) => (
+          {list.map((item) => (
             <tr key={item.id || item.key}>
               <td>{item.done ? <del>{item.title}</del> : item.title}</td>
 
@@ -14,7 +17,7 @@ export default function TodoList(props) {
                   title="Выполнено"
                   disabled={item.done}
                   onClick={() => {
-                    props.setDone(item.key);
+                    setDone(item.key);
                   }}
                 >
                   {`\u2611`}
@@ -24,7 +27,7 @@ export default function TodoList(props) {
                 <button
                   className="button is-danger"
                   title="Удалить"
-                  onClick={() => props.del(item.key)}
+                  onClick={() => del(item.key)}
                 >
                   {`\u2612`}
                 </button>
